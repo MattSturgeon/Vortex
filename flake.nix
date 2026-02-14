@@ -2,6 +2,7 @@
   description = "Vortex development environment";
 
   inputs = {
+    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/master";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
