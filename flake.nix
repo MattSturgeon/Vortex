@@ -11,11 +11,14 @@
     };
   };
 
-  outputs = { nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in {
-        devShells.default = pkgs.callPackage ./nix/devshell.nix { };
+        devShells.default = pkgs.callPackage ./nix/devshell.nix {
+          vortex = self.packages.${system}.default;
+        };
+        packages.default = pkgs.callPackage ./nix/package.nix { };
       });
 }

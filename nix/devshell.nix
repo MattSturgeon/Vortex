@@ -1,4 +1,5 @@
 {
+  vortex,
   appstream,
   chromium,
   clang,
@@ -15,32 +16,21 @@
   gtk4,
   librsvg,
   llvmPackages,
-  mkShell,
-  nodejs_24,
-  pkg-config,
-  pnpm,
-  python3,
-  yarn,
+  mkShellNoCC,
 }:
-mkShell {
+mkShellNoCC {
+  inputsFrom = [
+    vortex
+  ];
   packages = [
-    # Node.js and package managers
-    nodejs_24
-    pnpm
-    yarn
-
     # Flatpak tooling
     flatpak
     flatpak-builder
     appstream
 
-    # Python with setuptools for node-gyp (distutils removed in Python 3.12+)
-    (python3.withPackages (ps: [ ps.setuptools ]))
-
     # Build tools
     gitMinimal
     gnumake
-    pkg-config
 
     # C/C++ toolchain
     clang
